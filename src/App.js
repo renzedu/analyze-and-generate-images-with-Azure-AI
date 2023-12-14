@@ -34,9 +34,9 @@ function App() {
     if (result) {
       return <div>
         <h2>Image Analysis Result</h2>
-        
+
         <img 
-          width="1024"
+          width="1024" alt=""
         src={result?.url ? result.url : imageUrl} />
   
         <pre>{JSON.stringify(result, null, 2)}</pre>
