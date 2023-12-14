@@ -34,6 +34,7 @@ function App() {
     if (result) {
       return <div>
         <h2>Image Analysis Result</h2>
+        
         <img 
           width="1024"
         src={result?.url ? result.url : imageUrl} />
