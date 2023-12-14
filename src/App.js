@@ -1,6 +1,6 @@
 import React from 'react';
 import analyzeImage from './azure-image-analysis';
-
+import generateImage from './azure-image-generation';
 
 function App() {
   const value = 'World';
@@ -16,21 +16,32 @@ function App() {
       console.log("Error analyzing image:", error);
       throw error;
     }
-  }
+  };
+
+  const handleImageGeneration = async () => {
+    let prompt = imageUrl;
+    try {
+      const generationResult = await generateImage(prompt);
+      setResult(generationResult[0]);
+      //console.log(generationResult[0]);
+    }catch (error) {
+      console.log("Error generating image:", error);
+      throw error;
+    }
+  };
   
   const displayResult = () => { 
     if (result) {
       return <div>
         <h2>Image Analysis Result</h2>
         <img 
-          width="500"
-        src={result?.url ? result.url : imageUrl} 
-        alt="Image Uploaded" />
+          width="1024"
+        src={result?.url ? result.url : imageUrl} />
   
         <pre>{JSON.stringify(result, null, 2)}</pre>
       </div>
     }
-  }
+  };
 
 
   return <div>
@@ -42,7 +53,7 @@ function App() {
              >
             </input>
             <button onClick={handleImageAnalysis}>Analyze Image</button>
-            <button>Generate Image</button>
+            <button onClick={handleImageGeneration}>Generate Image</button>
             {displayResult()}
           </div>;
 
